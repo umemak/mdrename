@@ -60,7 +60,6 @@ func main() {
 				continue
 			}
 			fmt.Println(" - renamed")
-			fmt.Println(" - renamed")
 		} else {
 			fmt.Println(" - skipped")
 		}
