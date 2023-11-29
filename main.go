@@ -45,6 +45,16 @@ func main() {
 		if len(match) > 1 {
 			title := strings.Trim(strings.TrimSpace(match[1]), "\"")
 			newName := fmt.Sprintf("%s - %s.md", strings.TrimSuffix(file, ext), title)
+			// ファイル名に使えない文字を置換する
+			newName = strings.ReplaceAll(newName, "/", "／")
+			newName = strings.ReplaceAll(newName, ":", "：")
+			newName = strings.ReplaceAll(newName, "*", "＊")
+			newName = strings.ReplaceAll(newName, "?", "？")
+			newName = strings.ReplaceAll(newName, "\"", "”")
+			newName = strings.ReplaceAll(newName, "<", "＜")
+			newName = strings.ReplaceAll(newName, ">", "＞")
+			newName = strings.ReplaceAll(newName, "|", "｜")
+
 			fmt.Printf(" -> %q", newName)
 			err = os.Rename(file, newName)
 			if err != nil {
