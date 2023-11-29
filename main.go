@@ -19,13 +19,20 @@ func main() {
 
 	fileList := []string{}
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info == nil {
+			return fmt.Errorf("FileInfo is nil for path: %s", path)
+		}
 		if strings.HasSuffix(path, ext) {
 			fileList = append(fileList, path)
 		}
 		return nil
 	})
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(os.Stderr, "Error walking the path %v: %v\n", dir, err)
+		os.Exit(1)
 	}
 
 	re := regexp.MustCompile(`productTitle:\s*(.+)`) // titleメタ情報を抽出する正規表現
@@ -40,6 +47,7 @@ func main() {
 		content, err := os.ReadFile(file)
 		if err != nil {
 			fmt.Println(err)
+			continue
 		}
 		match := re.FindStringSubmatch(string(content))
 		if len(match) > 1 {
@@ -59,6 +67,7 @@ func main() {
 			err = os.Rename(file, newName)
 			if err != nil {
 				fmt.Println(err)
+				continue
 			}
 			fmt.Println(" - renamed")
 		} else {
