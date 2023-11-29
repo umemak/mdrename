@@ -62,7 +62,11 @@ func main() {
 			newName = strings.ReplaceAll(newName, "<", "＜")
 			newName = strings.ReplaceAll(newName, ">", "＞")
 			newName = strings.ReplaceAll(newName, "|", "｜")
-
+			// ファイル名の重複チェック
+			if _, err := os.Stat(newName); err == nil {
+				fmt.Println(" - exists. skipped")
+				continue
+			}
 			fmt.Printf(" -> %q", newName)
 			err = os.Rename(file, newName)
 			if err != nil {
