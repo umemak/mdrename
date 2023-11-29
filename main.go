@@ -67,6 +67,11 @@ func main() {
 				fmt.Println(" - exists. skipped")
 				continue
 			}
+			// ファイル名の長さがシステムの制限を超えていないかチェック
+			if len(newName) > 255 {
+				fmt.Println(" - too long. skipped")
+				continue
+			}
 			fmt.Printf(" -> %q", newName)
 			err = os.Rename(file, newName)
 			if err != nil {
