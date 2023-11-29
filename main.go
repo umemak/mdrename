@@ -57,7 +57,9 @@ func main() {
 			err = os.Rename(file, newName)
 			if err != nil {
 				fmt.Println(err)
+				continue
 			}
+			fmt.Println(" - renamed")
 			fmt.Println(" - renamed")
 		} else {
 			fmt.Println(" - skipped")
