@@ -47,6 +47,7 @@ func main() {
 		content, err := os.ReadFile(file)
 		if err != nil {
 			fmt.Println(err)
+			continue
 		}
 		match := re.FindStringSubmatch(string(content))
 		if len(match) > 1 {
