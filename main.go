@@ -19,6 +19,12 @@ func main() {
 
 	fileList := []string{}
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info == nil {
+			return fmt.Errorf("FileInfo is nil for path: %s", path)
+		}
 		if strings.HasSuffix(path, ext) {
 			fileList = append(fileList, path)
 		}
