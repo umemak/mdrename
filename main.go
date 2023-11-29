@@ -25,7 +25,8 @@ func main() {
 		return nil
 	})
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(os.Stderr, "Error walking the path %v: %v\n", dir, err)
+		os.Exit(1)
 	}
 
 	re := regexp.MustCompile(`productTitle:\s*(.+)`) // titleメタ情報を抽出する正規表現
